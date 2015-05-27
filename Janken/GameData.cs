@@ -211,7 +211,7 @@ namespace Janken
                     DX.DrawString(CalcCenterX("手を選んでください！"), 264, "手を選んでください！", DX.GetColor(200, 200, 200));
                     DX.DrawString(CalcCenterX("グー…0　チョキ…1　パー…2"), 288, "グー…0　チョキ…1　パー…2", DX.GetColor(255, 100, 100));
 
-                    DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[(int)Hand.Goo], DX.TRUE);   // 相手の手の画像を表示
+                    DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[DX.GetRand(2)], DX.TRUE);   // 相手の手の画像を表示
 
                     DX.DrawRotaGraph(100, 500, 0.34, 0, gamePlay_HandImg[(int)Hand.Goo], DX.TRUE);        // 手の画像を表示　グー
                     DX.DrawRotaGraph(400, 495, 0.34, 0, gamePlay_HandImg[(int)Hand.Scissors], DX.TRUE);   // 手の画像を表示　チョキ
