@@ -223,7 +223,7 @@ namespace Janken
                 case GamePlayStatus.HandSelect: // 手を選択する場面
                     DX.SetFontSize(24);
                     DX.DrawString(CalcCenterX("手を選んでください！"), 264, "手を選んでください！", DX.GetColor(200, 200, 200));
-                    DX.DrawString(CalcCenterX("グー…0　チョキ…1　パー…2"), 288, "グー…0　チョキ…1　パー…2", DX.GetColor(255, 100, 100));
+                    DX.DrawString(CalcCenterX("[1]グー　[2]チョキ　[3]パー"), 288, "[1]グー　[2]チョキ　[3]パー", DX.GetColor(255, 100, 100));
 
                     DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[DX.GetRand(2)], DX.TRUE);   // 相手の手の画像を表示
 
@@ -232,19 +232,19 @@ namespace Janken
                     DX.DrawRotaGraph(700, 500, 0.34, 0, gamePlay_HandImg[(int)Hand.Per], DX.TRUE);        // 手の画像を表示　パー
 
 
-                    if (key[DX.KEY_INPUT_0] == 1)   // グーを選択
+                    if (key[DX.KEY_INPUT_1] == 1)   // グーを選択
                     {
                         playerHand = 0; // 自分の手を格納
                         enemyHand = (Hand)DX.GetRand(2);     // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;  // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_1] == 1)  // チョキを選択
+                    else if (key[DX.KEY_INPUT_2] == 1)  // チョキを選択
                     {
                         playerHand = (Hand)1;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;   // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_2] == 1)  // パーを選択
+                    else if (key[DX.KEY_INPUT_3] == 1)  // パーを選択
                     {
                         playerHand = (Hand)2;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
