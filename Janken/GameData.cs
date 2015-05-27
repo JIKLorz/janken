@@ -232,19 +232,19 @@ namespace Janken
                     DX.DrawRotaGraph(700, 500, 0.34, 0, gamePlay_HandImg[(int)Hand.Per], DX.TRUE);        // 手の画像を表示　パー
 
 
-                    if (key[DX.KEY_INPUT_1] == 1)   // グーを選択
+                    if (key[DX.KEY_INPUT_1] == 1 || key[DX.KEY_INPUT_NUMPAD1] == 1)   // グーを選択
                     {
                         playerHand = 0; // 自分の手を格納
                         enemyHand = (Hand)DX.GetRand(2);     // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;  // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_2] == 1)  // チョキを選択
+                    else if (key[DX.KEY_INPUT_2] == 1 || key[DX.KEY_INPUT_NUMPAD2] == 1)  // チョキを選択
                     {
                         playerHand = (Hand)1;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;   // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_3] == 1)  // パーを選択
+                    else if (key[DX.KEY_INPUT_3] == 1 || key[DX.KEY_INPUT_NUMPAD3] == 1)  // パーを選択
                     {
                         playerHand = (Hand)2;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
