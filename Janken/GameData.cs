@@ -262,6 +262,7 @@ namespace Janken
                         DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[(int)enemyHand], DX.TRUE);    // 相手の手の画像を表示
                         DX.DrawRotaGraph(400, 495, 0.34, 0, gamePlay_HandImg[(int)playerHand], DX.TRUE);         // 自分の手の画像を表示
                         judgeResult = Judge(playerHand, enemyHand);     // 判定
+                        DX.SetFontSize(16);
                         frameCounter++;
                     }
                     else if (frameCounter <= 150)    // 150フレーム以下（3秒間）
@@ -308,6 +309,7 @@ namespace Janken
                                 break;
                         }
 
+                        DX.SetFontSize(16);
                         frameCounter++;
                     }
                     else    // 終了判定
@@ -345,8 +347,10 @@ namespace Janken
                         int x = CalcCenterX("もう一度") - DX.GetFontSize(), y = 360;                                // 文字の表示位置
                         int selectColor = DX.GetColor(255, 100, 100), menuColor = DX.GetColor(255, 255, 255);       // メニューの文字カラー
 
-                        String score = string.Format("{0:00}勝 {1:00}敗 {2:00}分", playerWinCount, playerLoseCount, playerDrawCount);
-                        DX.DrawString(CalcCenterX(score), 235, score, DX.GetColor(255, 255, 255));   //勝敗の表示
+                        DX.SetFontSize(24);
+                        string score = string.Format("{0:00}勝 {1:00}敗 {2:00}分", playerWinCount, playerLoseCount, playerDrawCount);
+                        DX.DrawString(CalcCenterX(score), 225, score, DX.GetColor(255, 255, 255));   //勝敗の表示
+                        DX.SetFontSize(16);
 
                         // 選択されているメニューによって表示を変える
                         switch (selectMenuId)
