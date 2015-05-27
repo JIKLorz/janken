@@ -165,9 +165,23 @@ namespace Janken
         public int GamePlay(byte[] key)
         {
             if (winningStreak > 1)
-                DX.DrawString(700, 0, winningStreak + "連勝", DX.GetColor(255, 51, 0));   //連勝の表示
+            {
+                DX.SetFontSize(21);
+                string winStrText = string.Format("{0}連勝中", winningStreak);      // 表示する文字の形式をセット
+
+                int textWidth = DX.GetDrawStringWidth(winStrText, Encoding.GetEncoding("Shift_JIS").GetByteCount(winStrText));      // 文字の幅を取得
+                DX.DrawString(800 - textWidth, 0, winStrText, DX.GetColor(255, 51, 0));   //連勝の表示
+                DX.SetFontSize(16);
+            }
             if (losingStreak > 1)
-                DX.DrawString(700, 0, losingStreak + "連敗", DX.GetColor(0, 153, 255));   //連敗の表示
+            {
+                DX.SetFontSize(21);
+                string loseStrText = string.Format("{0}連敗中", losingStreak);      // 表示する文字の形式をセット
+
+                int textWidth = DX.GetDrawStringWidth(loseStrText, Encoding.GetEncoding("Shift_JIS").GetByteCount(loseStrText));      // 文字の幅を取得
+                DX.DrawString(800 - textWidth, 0, loseStrText, DX.GetColor(0, 153, 255));   //連敗の表示
+                DX.SetFontSize(16);
+            }
 
             switch (gmplaystat)
             {
