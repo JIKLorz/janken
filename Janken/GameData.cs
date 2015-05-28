@@ -165,9 +165,23 @@ namespace Janken
         public int GamePlay(byte[] key)
         {
             if (winningStreak > 1)
-                DX.DrawString(700, 0, winningStreak + "連勝", DX.GetColor(255, 51, 0));   //連勝の表示
+            {
+                DX.SetFontSize(21);
+                string winStrText = string.Format("{0}連勝中", winningStreak);      // 表示する文字の形式をセット
+
+                int textWidth = DX.GetDrawStringWidth(winStrText, Encoding.GetEncoding("Shift_JIS").GetByteCount(winStrText));      // 文字の幅を取得
+                DX.DrawString(800 - textWidth, 0, winStrText, DX.GetColor(255, 51, 0));   //連勝の表示
+                DX.SetFontSize(16);
+            }
             if (losingStreak > 1)
-                DX.DrawString(700, 0, losingStreak + "連敗", DX.GetColor(0, 153, 255));   //連敗の表示
+            {
+                DX.SetFontSize(21);
+                string loseStrText = string.Format("{0}連敗中", losingStreak);      // 表示する文字の形式をセット
+
+                int textWidth = DX.GetDrawStringWidth(loseStrText, Encoding.GetEncoding("Shift_JIS").GetByteCount(loseStrText));      // 文字の幅を取得
+                DX.DrawString(800 - textWidth, 0, loseStrText, DX.GetColor(0, 153, 255));   //連敗の表示
+                DX.SetFontSize(16);
+            }
 
             switch (gmplaystat)
             {
@@ -209,28 +223,28 @@ namespace Janken
                 case GamePlayStatus.HandSelect: // 手を選択する場面
                     DX.SetFontSize(24);
                     DX.DrawString(CalcCenterX("手を選んでください！"), 264, "手を選んでください！", DX.GetColor(200, 200, 200));
-                    DX.DrawString(CalcCenterX("グー…0　チョキ…1　パー…2"), 288, "グー…0　チョキ…1　パー…2", DX.GetColor(255, 100, 100));
+                    DX.DrawString(CalcCenterX("[1]グー　[2]チョキ　[3]パー"), 288, "[1]グー　[2]チョキ　[3]パー", DX.GetColor(255, 100, 100));
 
-                    DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[(int)Hand.Goo], DX.TRUE);   // 相手の手の画像を表示
+                    DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[DX.GetRand(2)], DX.TRUE);   // 相手の手の画像を表示
 
                     DX.DrawRotaGraph(100, 500, 0.34, 0, gamePlay_HandImg[(int)Hand.Goo], DX.TRUE);        // 手の画像を表示　グー
                     DX.DrawRotaGraph(400, 495, 0.34, 0, gamePlay_HandImg[(int)Hand.Scissors], DX.TRUE);   // 手の画像を表示　チョキ
                     DX.DrawRotaGraph(700, 500, 0.34, 0, gamePlay_HandImg[(int)Hand.Per], DX.TRUE);        // 手の画像を表示　パー
 
 
-                    if (key[DX.KEY_INPUT_0] == 1)   // グーを選択
+                    if (key[DX.KEY_INPUT_1] == 1 || key[DX.KEY_INPUT_NUMPAD1] == 1)   // グーを選択
                     {
                         playerHand = 0; // 自分の手を格納
                         enemyHand = (Hand)DX.GetRand(2);     // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;  // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_1] == 1)  // チョキを選択
+                    else if (key[DX.KEY_INPUT_2] == 1 || key[DX.KEY_INPUT_NUMPAD2] == 1)  // チョキを選択
                     {
                         playerHand = (Hand)1;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
                         gmplaystat = GamePlayStatus.Prog02;   // 次の場面へ行くためのフラグセット
                     }
-                    else if (key[DX.KEY_INPUT_2] == 1)  // パーを選択
+                    else if (key[DX.KEY_INPUT_3] == 1 || key[DX.KEY_INPUT_NUMPAD3] == 1)  // パーを選択
                     {
                         playerHand = (Hand)2;
                         enemyHand = (Hand)DX.GetRand(2);      // 敵の手を決定
@@ -248,6 +262,7 @@ namespace Janken
                         DX.DrawRotaGraph(400, 100, 0.34, Math.PI, gamePlay_HandImg[(int)enemyHand], DX.TRUE);    // 相手の手の画像を表示
                         DX.DrawRotaGraph(400, 495, 0.34, 0, gamePlay_HandImg[(int)playerHand], DX.TRUE);         // 自分の手の画像を表示
                         judgeResult = Judge(playerHand, enemyHand);     // 判定
+                        DX.SetFontSize(16);
                         frameCounter++;
                     }
                     else if (frameCounter <= 150)    // 150フレーム以下（3秒間）
@@ -294,6 +309,7 @@ namespace Janken
                                 break;
                         }
 
+                        DX.SetFontSize(16);
                         frameCounter++;
                     }
                     else    // 終了判定
@@ -331,8 +347,10 @@ namespace Janken
                         int x = CalcCenterX("もう一度") - DX.GetFontSize(), y = 360;                                // 文字の表示位置
                         int selectColor = DX.GetColor(255, 100, 100), menuColor = DX.GetColor(255, 255, 255);       // メニューの文字カラー
 
-                        String score = string.Format("{0:00}勝 {1:00}敗 {2:00}分", playerWinCount, playerLoseCount, playerDrawCount);
-                        DX.DrawString(CalcCenterX(score), 235, score, DX.GetColor(255, 255, 255));   //勝敗の表示
+                        DX.SetFontSize(24);
+                        string score = string.Format("{0:00}勝 {1:00}敗 {2:00}分", playerWinCount, playerLoseCount, playerDrawCount);
+                        DX.DrawString(CalcCenterX(score), 225, score, DX.GetColor(255, 255, 255));   //勝敗の表示
+                        DX.SetFontSize(16);
 
                         // 選択されているメニューによって表示を変える
                         switch (selectMenuId)

@@ -31,6 +31,7 @@ namespace Janken
             FPS fps = new FPS(GAME_FPS);            // FPS制御クラスの初期化
 
             gameData.GameFPS = GAME_FPS;            // FPSのセット
+            DX.SetFontSize(16);
 
             /* メインループ */
             while (DX.ScreenFlip() == 0 && DX.ProcessMessage() == 0 && DX.ClearDrawScreen() == 0 && DX.GetHitKeyStateAll(out key[0]) == 0 && fps.Update())
